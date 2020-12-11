@@ -1,0 +1,10 @@
+##Files to be ignored
+
+*.xlsx
+
+*.docx
+
+*.pdf
+
+*.zip
+*.csv

@@ -1,0 +1,388 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="GetTransactionalData" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System" xmlns:sd1="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Symbol" Type="InArgument(x:String)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>744,1179</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="36">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="24">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Flowchart sap2010:Annotation.AnnotationText="-Gets the Queue Items from the Orchestrator and create a formatted symbol.csv. Save the file in the Data/Output folder&#xA;&#xA;Pre-Condition: CreateFinalFileForAnalysis excecuted&#xA;Post-Condition: Symbol.csv file created with Transactional data" DisplayName="GetTranscationItems" sap:VirtualizedContainerService.HintSize="724,1119" sap2010:WorkflowViewState.IdRef="Flowchart_2">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="sd1:DataTable" Name="QueueDataTable" />
+      <Variable x:TypeArguments="x:String" Name="projectFolder" />
+      <Variable x:TypeArguments="scg:IEnumerable(ui:QueueItem)" Name="AllQueueItems" />
+    </Flowchart.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <av:Point x:Key="ShapeLocation">40,22.5</av:Point>
+        <av:Size x:Key="ShapeSize">60,75</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">100,60 200,60</av:PointCollection>
+        <x:Double x:Key="Height">1011</x:Double>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        <x:Double x:Key="Width">690</x:Double>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Flowchart.StartNode>
+      <x:Reference>__ReferenceID10</x:Reference>
+    </Flowchart.StartNode>
+    <FlowDecision x:Name="__ReferenceID1" Condition="[AllQueueItems IsNot Nothing]" DisplayName="Queue Empty?" sap:VirtualizedContainerService.HintSize="83,87" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <av:Point x:Key="ShapeLocation">258.5,436.5</av:Point>
+          <av:Size x:Key="ShapeSize">83,87</av:Size>
+          <av:PointCollection x:Key="TrueConnector">258.5,480 160,480 160,538.5</av:PointCollection>
+          <av:PointCollection x:Key="FalseConnector">341.5,480 480,480 480,499</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <FlowDecision.True>
+        <FlowStep x:Name="__ReferenceID7">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">60,538.5</av:Point>
+              <av:Size x:Key="ShapeSize">200,123</av:Size>
+              <av:PointCollection x:Key="ConnectorLocation">260,600 330,600 330,656.5</av:PointCollection>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:ForEach x:TypeArguments="ui:QueueItem" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="-Get all queue items from the &quot;Market_Data&quot; Queue and add rows to the QueueDataTable" DisplayName="For Each item in the AllQueueItems" sap:VirtualizedContainerService.HintSize="200,123" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[AllQueueItems]">
+            <ui:ForEach.Body>
+              <ActivityAction x:TypeArguments="ui:QueueItem">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="ui:QueueItem" Name="item" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Add Queue Items to a DT" sap:VirtualizedContainerService.HintSize="242,156" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:AddDataRow DataRow="{x:Null}" sap2010:Annotation.AnnotationText="-Add queue items to the QueueDataTable" ArrayRow="[{item.SpecificContent(&quot;Date&quot;).ToString,&#xA;item.SpecificContent(&quot;Open&quot;).ToString,&#xA;item.SpecificContent(&quot;Close&quot;).ToString&#xA;}]" DataTable="[QueueDataTable]" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="200,64" sap2010:WorkflowViewState.IdRef="AddDataRow_4">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:AddDataRow>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEach.Body>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ForEach>
+          <FlowStep.Next>
+            <FlowDecision x:Name="__ReferenceID4" Condition="[QueueDataTable IsNot Nothing]" DisplayName="Table Empty?" sap:VirtualizedContainerService.HintSize="77,87" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <av:Point x:Key="ShapeLocation">291.5,656.5</av:Point>
+                  <av:Size x:Key="ShapeSize">77,87</av:Size>
+                  <av:PointCollection x:Key="TrueConnector">291.5,700 100,700 100,734.5</av:PointCollection>
+                  <av:PointCollection x:Key="FalseConnector">368.5,700 480,700 480,734.5</av:PointCollection>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <FlowDecision.True>
+                <FlowStep x:Name="__ReferenceID5">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <av:Point x:Key="ShapeLocation">0,734.5</av:Point>
+                      <av:Size x:Key="ShapeSize">200,82</av:Size>
+                      <av:PointCollection x:Key="ConnectorLocation">100,816.5 100,844.5</av:PointCollection>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage sap2010:Annotation.AnnotationText="-Creating the .csv file" DisplayName="Log Info Message" sap:VirtualizedContainerService.HintSize="200,82" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Creating &quot;+ &quot;Example.csv file&quot;]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                  <FlowStep.Next>
+                    <FlowStep x:Name="__ReferenceID9">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <av:Point x:Key="ShapeLocation">0,844.5</av:Point>
+                          <av:Size x:Key="ShapeSize">200,108</av:Size>
+                          <av:PointCollection x:Key="ConnectorLocation">200,898.5 230,898.5 230,900 380,900</av:PointCollection>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If sap2010:Annotation.AnnotationText="-If in_Symbol&lt;Argument&gt; is empty assign it to &quot;Symbol&quot; value" Condition="[in_Symbol Is Nothing]" DisplayName="If in_Symbol&lt;argument&gt; is empty" sap:VirtualizedContainerService.HintSize="200,108" sap2010:WorkflowViewState.IdRef="If_2">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If.Then>
+                          <Assign DisplayName="Assign in_Symbol to &quot;Symbol" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[in_Symbol]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">Symbol</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </If.Then>
+                      </If>
+                      <FlowStep.Next>
+                        <FlowStep x:Name="__ReferenceID2">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <av:Point x:Key="ShapeLocation">380,846</av:Point>
+                              <av:Size x:Key="ShapeSize">200,108</av:Size>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" sap2010:Annotation.AnnotationText="-Creating a Symbol.csv file containing a Date, Open and Closing price" DataTable="[QueueDataTable]" Delimitator="Comma" DisplayName="Write SYMBOL.CSV File" FilePath="[&quot;Data\Output\&quot; +in_Symbol+&quot;.csv&quot;]" sap:VirtualizedContainerService.HintSize="200,108" sap2010:WorkflowViewState.IdRef="WriteCsvFile_5">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:WriteCsvFile>
+                        </FlowStep>
+                      </FlowStep.Next>
+                    </FlowStep>
+                  </FlowStep.Next>
+                </FlowStep>
+              </FlowDecision.True>
+              <FlowDecision.False>
+                <FlowStep x:Name="__ReferenceID6">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <av:Point x:Key="ShapeLocation">380,734.5</av:Point>
+                      <av:Size x:Key="ShapeSize">200,82</av:Size>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage sap2010:Annotation.AnnotationText="-QueueDT is empty" DisplayName="Log Info Message" sap:VirtualizedContainerService.HintSize="200,82" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;QueueDataTable Empty. A .csv file not created&quot;]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                </FlowStep>
+              </FlowDecision.False>
+            </FlowDecision>
+          </FlowStep.Next>
+        </FlowStep>
+      </FlowDecision.True>
+      <FlowDecision.False>
+        <FlowStep x:Name="__ReferenceID0">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">380,499</av:Point>
+              <av:Size x:Key="ShapeSize">200,82</av:Size>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:LogMessage sap2010:Annotation.AnnotationText="-No Transaction" DisplayName="Log  Info Message" sap:VirtualizedContainerService.HintSize="200,82" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Queue is Empty&quot;]">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:LogMessage>
+        </FlowStep>
+      </FlowDecision.False>
+    </FlowDecision>
+    <x:Reference>__ReferenceID0</x:Reference>
+    <FlowStep x:Name="__ReferenceID3">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">200,143.5</av:Point>
+          <av:Size x:Key="ShapeSize">200,93</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">300,236.5 300,286.5</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:BuildDataTable sap2010:Annotation.AnnotationText="-DataTable to add queue items" DataTable="[QueueDataTable]" DisplayName="Build QueueDataTable" sap:VirtualizedContainerService.HintSize="200,93" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Date&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Open&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Close&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Date&gt;text&lt;/Date&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:BuildDataTable>
+      <FlowStep.Next>
+        <FlowStep x:Name="__ReferenceID8">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">200,286.5</av:Point>
+              <av:Size x:Key="ShapeSize">200,123</av:Size>
+              <av:PointCollection x:Key="ConnectorLocation">300,409.5 300,436.5</av:PointCollection>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <TryCatch sap2010:Annotation.AnnotationText="-Gets Queue Items from the Market_Data Queue&#xA;-If there is system exception Kill all processes" DisplayName="TryCatch -  Get Queue Items" sap:VirtualizedContainerService.HintSize="200,123" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <TryCatch.Try>
+              <ui:GetQueueItems Duration="{x:Null}" From="{x:Null}" Priority="{x:Null}" Reference="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" To="{x:Null}" Top="{x:Null}" sap2010:Annotation.AnnotationText="-Gets Queue Items from the Market_Data Queue" DisplayName="Get Queue Items" FilterStrategy="StartsWith" sap:VirtualizedContainerService.HintSize="200,64" sap2010:WorkflowViewState.IdRef="GetQueueItems_2" QueueItemStates="All" QueueName="Market_Data" Result="[AllQueueItems]">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:GetQueueItems>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,531" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Log Error Message, Notify Process owner and Throw Exception" sap:VirtualizedContainerService.HintSize="376,458" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:LogMessage DisplayName="Log Error Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;Application Unresponsive&quot;+ Environment.NewLine+ exception .Source]" />
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendSMTPEMail workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="SendingEmailProcess\SendSMTPEMail.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <OutArgument x:TypeArguments="x:String" x:Key="out_strPassword" />
+                        <OutArgument x:TypeArguments="x:String" x:Key="out_email" />
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                    <Sequence sap2010:Annotation.AnnotationText="-Close all running applications" DisplayName="Close Applications" sap:VirtualizedContainerService.HintSize="334,108" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="sco:Collection(sd:Process)" Name="AllApplicatios" />
+                        <Variable x:TypeArguments="ui:GenericValue" Name="CurrentUser" />
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign DisplayName="Get current user name" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="ui:GenericValue">[CurrentUser]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="ui:GenericValue">[System.Environment.UserName]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <ui:GetProcesses ContinueOnError="{x:Null}" DisplayName="Get Processes" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="GetProcesses_1" Processes="[AllApplicatios]" />
+                      <ui:ForEach x:TypeArguments="sco:Collection(sd:Process)" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="-Log process names info and kill all processes" DisplayName="For Each process" sap:VirtualizedContainerService.HintSize="262,93" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[AllApplicatios]">
+                        <ui:ForEach.Body>
+                          <ActivityAction x:TypeArguments="sco:Collection(sd:Process)">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="sco:Collection(sd:Process)" Name="app" />
+                            </ActivityAction.Argument>
+                            <Sequence sap2010:Annotation.AnnotationText="-Log process names info and kill all processes" DisplayName="Kill all process" sap:VirtualizedContainerService.HintSize="200,108" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[app]" />
+                              <ui:KillProcess ContinueOnError="{x:Null}" Process="{x:Null}" DisplayName="Kill Process" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="[app.ToString]" />
+                            </Sequence>
+                          </ActivityAction>
+                        </ui:ForEach.Body>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:ForEach>
+                    </Sequence>
+                  </Sequence>
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+          <FlowStep.Next>
+            <x:Reference>__ReferenceID1</x:Reference>
+          </FlowStep.Next>
+        </FlowStep>
+      </FlowStep.Next>
+    </FlowStep>
+    <x:Reference>__ReferenceID2</x:Reference>
+    <FlowStep x:Name="__ReferenceID10">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">200,13.5</av:Point>
+          <av:Size x:Key="ShapeSize">200,93</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">300,106.5 300,143.5</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:GetEnvironmentVariable sap2010:Annotation.AnnotationText="-Get the current working directory" DisplayName="Get Environment Variable" sap:VirtualizedContainerService.HintSize="200,93" sap2010:WorkflowViewState.IdRef="GetEnvironmentVariable_2" Variable="CurrentDirectory" VariableValue="[projectFolder]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:GetEnvironmentVariable>
+      <FlowStep.Next>
+        <x:Reference>__ReferenceID3</x:Reference>
+      </FlowStep.Next>
+    </FlowStep>
+    <x:Reference>__ReferenceID4</x:Reference>
+    <x:Reference>__ReferenceID5</x:Reference>
+    <x:Reference>__ReferenceID6</x:Reference>
+    <x:Reference>__ReferenceID7</x:Reference>
+    <x:Reference>__ReferenceID8</x:Reference>
+    <x:Reference>__ReferenceID9</x:Reference>
+  </Flowchart>
+</Activity>

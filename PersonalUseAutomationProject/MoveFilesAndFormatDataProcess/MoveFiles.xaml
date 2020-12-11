@@ -1,0 +1,218 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="MoveFiles" sap:VirtualizedContainerService.HintSize="546,1480" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="18">
+      <x:String>System.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="16">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="This workflow access the downloads folder and filter the files, it then move the symbol .csv files into the current diretory (projectFolder)&#xA;&#xA;Pre-Condition: Symbol Historical data(.csv file) downloaded into Downloads folder&#xA;Post-Condition: Required files (.csv) moved to projectFolder" DisplayName="MoveFiles" sap:VirtualizedContainerService.HintSize="304,1020" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="DownloadsFolder" />
+      <Variable x:TypeArguments="s:String[]" Name="DownloadsFiles" />
+      <Variable x:TypeArguments="x:Boolean" Name="boolFileFilter" />
+      <Variable x:TypeArguments="x:String" Name="projectFolder" />
+      <Variable x:TypeArguments="x:Boolean" Name="boolFileFound" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign sap2010:Annotation.AnnotationText="Assign DownloadsFolder to &quot;\Dowloads&quot;" DisplayName="Assign DownloadsFolder to &quot;\Dowloads&quot;" sap:VirtualizedContainerService.HintSize="262,91" sap2010:WorkflowViewState.IdRef="Assign_4">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[DownloadsFolder]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\Downloads"]</InArgument>
+      </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </Assign>
+    <Assign sap2010:Annotation.AnnotationText="Get DownloadsFiles from the DownloadsFolder" DisplayName="Assign DownloadsFiles&lt;array&gt;" sap:VirtualizedContainerService.HintSize="262,102" sap2010:WorkflowViewState.IdRef="Assign_5">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:String[]">[DownloadsFiles]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(DownloadsFolder)]</InArgument>
+      </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </Assign>
+    <ui:GetEnvironmentVariable sap2010:Annotation.AnnotationText="CurrentDirtory and store the value in projectFolder variable" DisplayName="Get Environment Variable" sap:VirtualizedContainerService.HintSize="262,93" sap2010:WorkflowViewState.IdRef="GetEnvironmentVariable_2" Variable="CurrentDirectory" VariableValue="[projectFolder]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:GetEnvironmentVariable>
+    <Assign DisplayName="Assign boolFileFound to False" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Boolean">[boolFileFound]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+      </Assign.Value>
+    </Assign>
+    <While sap2010:Annotation.AnnotationText="-Keep searching for the file while is not available&#xA;This workflow moves the downloaded .csv file of the specified symbols from downloads folder into the projectFolder" DisplayName="While - Search for the relevant file while the file is not available" sap:VirtualizedContainerService.HintSize="262,168" sap2010:WorkflowViewState.IdRef="While_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <While.Condition>[boolFileFound = False]</While.Condition>
+      <Sequence DisplayName="Get Files and Move the File" sap:VirtualizedContainerService.HintSize="304,372" sap2010:WorkflowViewState.IdRef="Sequence_10">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Assign sap2010:Annotation.AnnotationText="Get DownloadsFiles from the DownloadsFolder" DisplayName="Assign DownloadsFiles&lt;array&gt;" sap:VirtualizedContainerService.HintSize="262,102" sap2010:WorkflowViewState.IdRef="Assign_12">
+          <Assign.To>
+            <OutArgument x:TypeArguments="s:String[]">[DownloadsFiles]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(DownloadsFolder)]</InArgument>
+          </Assign.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Assign>
+        <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="This workflow moves the downloaded .csv file of the specified symbols from downloads folder into the projectFolder" DisplayName="For Each file in DownloadsFiles" sap:VirtualizedContainerService.HintSize="262,138" sap2010:WorkflowViewState.IdRef="ForEach`1_8" Values="[DownloadsFiles]">
+          <ui:ForEach.Body>
+            <ActivityAction x:TypeArguments="x:Object">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="x:Object" Name="file" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Filter the files and move them to current working Dir" sap:VirtualizedContainerService.HintSize="304,361" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign sap2010:Annotation.AnnotationText="Filter only the Symbol files" DisplayName="Assign FileFilter" sap:VirtualizedContainerService.HintSize="262,91" sap2010:WorkflowViewState.IdRef="Assign_16">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Boolean">[boolFileFilter]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Boolean" xml:space="preserve">[file.ToString.Contains("AAPL") or  file.ToString.Contains("GOOGL") or file.ToString.Contains("FB") or file.ToString.Contains("TSLA")]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+                <If sap2010:Annotation.AnnotationText="If file contains {&quot;AAPL&quot;,&quot;GOOGL&quot;,&quot;FB&quot;,&quot;TSLA&quot;}, move to current working dir&#xA;else do nothing" Condition="[boolFileFilter]" DisplayName="If file contains FileFilter name" sap:VirtualizedContainerService.HintSize="262,138" sap2010:WorkflowViewState.IdRef="If_7">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence DisplayName="Log info and move file" sap:VirtualizedContainerService.HintSize="426,471" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign DisplayName="Assign boolFileFound to True" sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Boolean">[boolFileFound]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <ui:LogMessage sap2010:Annotation.AnnotationText="-File found? True/False" DisplayName="Log Info Message" sap:VirtualizedContainerService.HintSize="384,82" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;File found: &quot;+ boolFileFilter.ToString]">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:LogMessage>
+                      <ui:MoveFile ContinueOnError="{x:Null}" Destination="[projectFolder]" DisplayName="Move File symbol file to projectFolder" sap:VirtualizedContainerService.HintSize="384,157" sap2010:WorkflowViewState.IdRef="MoveFile_9" Overwrite="True" Path="[file.ToString]" />
+                    </Sequence>
+                  </If.Then>
+                </If>
+              </Sequence>
+            </ActivityAction>
+          </ui:ForEach.Body>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:ForEach>
+      </Sequence>
+    </While>
+    <ui:LogMessage sap2010:Annotation.AnnotationText="-File found? True/False" DisplayName="Log Info Message" sap:VirtualizedContainerService.HintSize="262,82" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;File found: &quot;+boolFileFound.ToString]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:LogMessage>
+  </Sequence>
+</Activity>
